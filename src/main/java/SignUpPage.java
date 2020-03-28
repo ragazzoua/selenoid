@@ -23,12 +23,7 @@ public class SignUpPage {
     private By registerButton = cssSelector("#register-button-email-submit");
 
 
-    public SignUpPage open() {
-        //Находим поле и вводим в него текст
-        Selenide.open("https://www.spotify.com/us/signup/");
-        return this;
-    }
-    //Метод для заполнения поля email
+        //Метод для заполнения поля email
     public SignUpPage typeEmail(String email) {
         //Находим поле и вводим в него текст
         $(emailFriend).sendKeys(email);
@@ -50,33 +45,33 @@ public class SignUpPage {
 
     //Метод для заполнения поля ввода имени
     public SignUpPage typeName(String name) {
-        $(displayNameField).sendKeys(name);
+        driver.findElement(displayNameField).sendKeys(name);
         return this;
     }
 
     //Метод выбора месяца
     public SignUpPage setMonth(String month) {
-        $(monthDropDown).sendKeys(month);
+        driver.findElement(monthDropDown).sendKeys(month);
         return this;
     }
 
 
     //Метод для заполнения поля Day
     public SignUpPage typeDay(String day) {
-        $(dayField).sendKeys(day);
+        driver.findElement(dayField).sendKeys(day);
         return this;
     }
 
 
     //Метод для заполнения поля Year
     public SignUpPage typeYear(String year) {
-        $(yearField).sendKeys(year);
+        driver.findElement(yearField).sendKeys(year);
         return this;
     }
 
     public SignUpPage setShare(boolean value) {
         if (value) {
-            $(shareCheckbox).click();
+            driver.findElement(shareCheckbox).click();
         }
         return this;
     }
