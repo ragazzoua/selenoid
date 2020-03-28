@@ -2,6 +2,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,16 +15,9 @@ public class BaseTest {
     //Добавляем переменные драйвера
     private SignUpPage page;
 
-    @BeforeMethod
+    @BeforeClass
     public void setUp() {
-        //Указываем путь где хранится geckodriver
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-        //Создаем новый драйвер
-        driver = new FirefoxDriver();
-        //Добавляем неявное ожидание, используемое при поиске любого из элементов
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //Открываем url в браузере с помощью метода webdrivera get
-        driver.get("https://www.spotify.com/us/signup/");
+
     }
 
     @Test
@@ -31,7 +25,7 @@ public class BaseTest {
         //Создаём объект класса страницы регистрации и передаём в конструктор класса driver
         page = new SignUpPage(driver);
         //Устанавливаем месяц
-        page.setMonth("December")
+        page.open().setMonth("December")
                 //Указываем день
                 .typeDay("20")
                 //Указываем год
@@ -42,9 +36,4 @@ public class BaseTest {
         Assert.assertTrue(page.isErrorVisible("Please enter a valid year."));
     }
 
-    @AfterMethod
-    //Метод, закрывающий браузер
-    public void tearDown() {
-        driver.quit();
-    }
 }

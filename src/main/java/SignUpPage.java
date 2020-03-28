@@ -1,6 +1,8 @@
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import static com.codeborne.selenide.Selenide.$;
 import static org.openqa.selenium.By.cssSelector;
 
 public class SignUpPage {
@@ -20,55 +22,61 @@ public class SignUpPage {
     private By shareCheckbox = cssSelector("#register-thirdparty");
     private By registerButton = cssSelector("#register-button-email-submit");
 
+
+    public SignUpPage open() {
+        //Находим поле и вводим в него текст
+        Selenide.open("https://www.spotify.com/us/signup/");
+        return this;
+    }
     //Метод для заполнения поля email
     public SignUpPage typeEmail(String email) {
         //Находим поле и вводим в него текст
-        driver.findElement(emailFriend).sendKeys(email);
+        $(emailFriend).sendKeys(email);
         return this;
     }
 
     //Метод для заполнения поля Confirm email
     public SignUpPage typeConfirmEmailFriend(String email) {
-        driver.findElement(confirmEmailFriend).sendKeys(email);
+        $(confirmEmailFriend).sendKeys(email);
         return this;
     }
 
     //Метод для заполнения поля password
     public SignUpPage typePassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        $(passwordField).sendKeys(password);
         return this;
     }
 
 
     //Метод для заполнения поля ввода имени
     public SignUpPage typeName(String name) {
-        driver.findElement(displayNameField).sendKeys(name);
+        $(displayNameField).sendKeys(name);
         return this;
     }
 
     //Метод выбора месяца
     public SignUpPage setMonth(String month) {
-        driver.findElement(monthDropDown).sendKeys(month);
+        $(monthDropDown).sendKeys(month);
         return this;
     }
 
 
     //Метод для заполнения поля Day
     public SignUpPage typeDay(String day) {
-        driver.findElement(dayField).sendKeys(day);
+        $(dayField).sendKeys(day);
         return this;
     }
 
 
     //Метод для заполнения поля Year
     public SignUpPage typeYear(String year) {
-        driver.findElement(yearField).sendKeys(year);
+        $(yearField).sendKeys(year);
         return this;
     }
 
     public SignUpPage setShare(boolean value) {
         if (value) {
-            driver.findElement(shareCheckbox).click();
+            $(shareCheckbox).click();
         }
         return this;
     }
