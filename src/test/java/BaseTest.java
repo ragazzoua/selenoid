@@ -1,5 +1,7 @@
+import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -16,11 +18,13 @@ public class BaseTest {
 
     @BeforeClass
     public void setUp() {
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-        driver = new FirefoxDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://www.spotify.com/us/signup/");
-
+        Configuration.remote = "http://127.0.0.1:4444/wd/hub";
+        Configuration.browser = "chrome";
+        Configuration.browserSize = "1920x1080";
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+        Configuration.browserCapabilities = capabilities;
     }
 
     @Test
@@ -28,7 +32,7 @@ public class BaseTest {
         //Создаём объект класса страницы регистрации и передаём в конструктор класса driver
         page = new SignUpPage(driver);
         //Устанавливаем месяц
-        page.setMonth("December")
+        page.open().setMonth("December")
                 //Указываем день
                 .typeDay("20")
                 //Указываем год
@@ -37,11 +41,6 @@ public class BaseTest {
                 .setShare(true);
         //Проверяем видимость ошибки, ошибка должна быть видна;
         Assert.assertTrue(page.isErrorVisible("Please enter a valid year."));
-    }
-
-    @AfterMethod
-    public void tearDown(){
-        driver.quit();
     }
 
 }

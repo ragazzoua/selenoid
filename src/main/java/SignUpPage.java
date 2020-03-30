@@ -23,7 +23,7 @@ public class SignUpPage {
     private By registerButton = cssSelector("#register-button-email-submit");
 
 
-        //Метод для заполнения поля email
+    //Метод для заполнения поля email
     public SignUpPage typeEmail(String email) {
         //Находим поле и вводим в него текст
         $(emailFriend).sendKeys(email);
@@ -77,10 +77,11 @@ public class SignUpPage {
     }
 
     public boolean isErrorVisible(String s) {
-        if (s.equalsIgnoreCase("Please enter a valid year.")) {
-            return true;
-        } else {
-            return false;
-        }
+        return s.equalsIgnoreCase("Please enter a valid year.");
+    }
+
+    public SignUpPage open() {
+        Selenide.open("https://www.spotify.com/us/signup/");
+        return this;
     }
 }
